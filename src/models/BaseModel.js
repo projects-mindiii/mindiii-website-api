@@ -82,7 +82,7 @@ class BaseModel {
     fetchAll(tableName = this.table) {
         return knex(tableName)
             .select()
-            .map((res) => {
+            .then((res) => {
                 return res;
             });
     }
@@ -98,7 +98,7 @@ class BaseModel {
         return knex(tableName)
             .select()
             .where(query)
-            .map((res) => {
+            .then((res) => {
                 return res;
             });
     }
@@ -116,7 +116,7 @@ class BaseModel {
             .select(knex.raw(`*`))
             .join(joinTable, `${tableName}.${tableKey}`, `${joinTable}.${joinKey}`)
             .where(query)
-            .map((res) => {
+            .then((res) => {
                 return res;
             });
 
