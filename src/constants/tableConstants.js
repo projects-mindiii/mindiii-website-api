@@ -7,7 +7,7 @@
  * @ShortDescription       This is responsible for table name constants
  */
 const tableConstants = {
-   "JOBS": "jobs"
-
+   "TB_JOBS": "jobs",
+   "TB_PORTFOLIO": "portfolio"
 };
 export default tableConstants;
