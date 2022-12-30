@@ -22,20 +22,13 @@ export default class portfolioModel extends BaseModel {
         var q = knex(tableName)
             .select(opts)
             .where(query)
-            .select(knex.raw(`GROUP_CONCAT(portfolio.id SEPARATOR ',') as product_id`))
-            .groupBy('portfolio.industries_id')
-            .leftJoin("categories", "categories.id", "portfolio.industries_id")
+            .where({ "categories.status": 1 })
+            .where({ "categories.is_delete": 0 })
+            .innerJoin("categories", "categories.id", "portfolio.industries_id")
+        //inner jon and status and delete check
         return q.then((res) => {
 
             return res;
         })
-    }
-
-    fetchPortfolioListDataWithSelectedFields(query = {}, tableName = this.table,) {
-        return knex(tableName)
-            .select('portfolio.name as product_name')
-            .where(query)
-            .first()
-
     }
 }

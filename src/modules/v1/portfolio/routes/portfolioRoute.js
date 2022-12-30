@@ -13,6 +13,10 @@ const portfolioRoutes = new Router();
 
 portfolioRoutes.get('/portfolio-list', checkApiHeaders, portfolioController.portfolioList);
 
+//Detail of product
+portfolioRoutes.get('/portfolio-detail/:product_key', checkApiHeaders, portfolioController.portfolioDetail);
+
+
 export {
     portfolioRoutes
 };

@@ -3,5 +3,6 @@
 	"JOB_DETAILS": "Job detailed displayed successfully.",
 	"MISSING_HEADERS": "MISSING_HEADERS",
 	"PRODUCT_LIST": "Products list",
-	"INVALID_API_KEY": "INVALID_API_KEY"
+	"INVALID_API_KEY": "INVALID_API_KEY",
+	"PRODUCT_DATA": "PRODUCT_DATA"
 }
