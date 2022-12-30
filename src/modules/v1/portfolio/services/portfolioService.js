@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { each, forEach } from "lodash";
+import folderConstants from "../../../../constants/folderConstants";
 import tableConstants from "../../../../constants/tableConstants";
 import portfolioModel from "../models/portfolioModel";
 
@@ -71,15 +72,47 @@ export class protfolioService {
     async portfolioDetail(req) {
         try {
 
-            const where = { "portfolio.product_key": req.query.product_key };
+            const checkProductKey = await protfolioModelObj.fetchFirstObj({ "portfolio.product_key": req.params.product_key }, tableConstants.TB_PORTFOLIO)
+            if (checkProductKey === undefined) {
+                let res = {
+                    status: false,
+                    status_code: StatusCodes.BAD_REQUEST,
+                    message: "INVALID_PROJECT_KEY",
+                    response: {}
+                };
+                return res;
+            }
+            const where = { "portfolio.product_key": req.params.product_key, "portfolio.status": 1 };
 
-            const productData = await protfolioModelObj.fetchProductDataWithSelectedFields(where, ['portfolio.id', 'portfolio.title', 'portfolio.description', 'portfolio.banner_image', 'portfolio.web_images', 'portfolio.app_images', 'portfolio.end_description', 'portfolio.ios_url', 'portfolio.android_url', 'portfolio.ios_url'], tableConstants.TB_PORTFOLIO);
+            const productData = await protfolioModelObj.fetchProductDataWithSelectedFields(where, ['portfolio.id', 'portfolio.name as project_name', 'portfolio.title', 'portfolio.banner_image', 'portfolio.description', 'portfolio.website_url', 'portfolio.web_images', 'portfolio.app_images', 'portfolio.end_description', 'portfolio.android_url', 'portfolio.ios_url'], tableConstants.TB_PORTFOLIO);
 
+            if (productData.banner_image !== "" || productData.banner_image !== null) {
+                productData.banner_image = folderConstants.BANNER_IMAGE + `${productData.banner_image}`
+            }
 
+            var web_img = [],
+                app_img = [];
+            if (productData.web_images.length > 0) {
+                productData.web_images = productData.web_images.split(",")
+                for (let index = 0; index < productData.web_images.length; index++) {
+                    const element = productData.web_images[index];
+                    web_img.push(folderConstants.WEB_IMAGE + `${element}`)
+                }
+                productData.web_images = web_img
+            }
+            if (productData.app_images.length > 0) {
+                productData.app_images = productData.app_images.split(",")
+
+                for (let index = 0; index < productData.app_images.length; index++) {
+                    const element = productData.app_images[index];
+                    app_img.push(folderConstants.APP_IMAGE + `${element}`)
+                }
+                productData.app_images = app_img
+            }
             let res = {
                 status: true,
                 status_code: StatusCodes.OK,
-                response: {}
+                response: { productData }
             };
             return res;
 

@@ -31,4 +31,20 @@ export default class portfolioModel extends BaseModel {
             return res;
         })
     }
+
+    /**
+     * Portfolio product detail 
+     * 
+     * @param {*} query 
+     * @param {*} opts 
+     * @param {*} tableName 
+     * @returns 
+     */
+    fetchProductDataWithSelectedFields(query = {}, opts = [], tableName = this.table,) {
+        return knex(tableName)
+            .select(opts)
+            .where(query)
+            .leftJoin("categories", "categories.id", "portfolio.industries_id")
+            .first()
+    }
 }

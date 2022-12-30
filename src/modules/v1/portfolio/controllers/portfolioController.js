@@ -54,6 +54,13 @@ const portfolioDetail = async (req, res, next) => {
                 sendResponse(req, res, StatusCodes.OK, responseData);
                 break;
 
+            case StatusCodes.BAD_REQUEST:
+
+                responseData.status_code = StatusCodes.BAD_REQUEST;
+                responseData.message = localeService.translate(returnData.message);
+                responseData.data = returnData.response;
+                sendErrorResponse(req, res, StatusCodes.BAD_REQUEST, responseData);
+                break;
 
             default: //send default error response
                 errorResponce(req, res, StatusCodes.INTERNAL_SERVER_ERROR);
