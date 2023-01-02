@@ -14,7 +14,8 @@ const basePath = process.env.ADMIN_URL_BASE
 const folderConstants = {
     "BANNER_IMAGE": `${basePath}/uploads/portfolio/`,
     "WEB_IMAGE": `${basePath}/uploads/appImage/`,
-    "APP_IMAGE": `${basePath}/uploads/webImage/`
+    "APP_IMAGE": `${basePath}/uploads/webImage/`,
+    "GALLERY_IMAGE": `${basePath}/uploads/pictures/`
 
 };
 

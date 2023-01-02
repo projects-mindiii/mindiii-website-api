@@ -8,6 +8,7 @@
  */
 const tableConstants = {
    "TB_JOBS": "jobs",
-   "TB_PORTFOLIO": "portfolio"
+   "TB_PORTFOLIO": "portfolio",
+   "TB_GALLERIES": "galleries"
 };
 export default tableConstants;

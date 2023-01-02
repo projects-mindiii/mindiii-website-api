@@ -72,7 +72,7 @@ export class protfolioService {
     async portfolioDetail(req) {
         try {
 
-            const checkProductKey = await protfolioModelObj.fetchFirstObj({ "portfolio.product_key": req.params.product_key }, tableConstants.TB_PORTFOLIO)
+            const checkProductKey = await protfolioModelObj.fetchFirstObj({ "portfolio.product_key": req.params.product_key, "portfolio.status": 1 }, tableConstants.TB_PORTFOLIO)
             if (checkProductKey === undefined) {
                 let res = {
                     status: false,

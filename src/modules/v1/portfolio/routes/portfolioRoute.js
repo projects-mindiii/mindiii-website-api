@@ -3,7 +3,7 @@ import { Router } from "express";
 import checkApiHeaders from "~/middlewares/checkApiHeaders"
 import portfolioController from "../controllers/portfolioController";
 
-//  Contains all API routes for BTF ticket history.
+//  Contains all API routes for portfolio
 
 const portfolioRoutes = new Router();
 
