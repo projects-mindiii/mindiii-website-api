@@ -19,28 +19,37 @@ const checkApiHeaders = (req, res, next) => {
         deviceToken = req.headers["device_token"],
         apiAccessKey = req.headers["api_key"];
 
+    //For website check
+    if (deviceType === 3) {
+        // check api access key
+        if (process.env.API_KEY != apiAccessKey) {
+            const responseObj = { "status": "fail", "status_code": 401, "message": localeService.translate('INVALID_API_KEY'), "data": "" };
+            return res.status(401).json(responseObj);
+        }
+        next();
 
-    // check header
-    if (deviceToken === "" || deviceToken === undefined || deviceId === undefined || deviceId === "" || deviceType === undefined || deviceType === "" || apiAccessKey === undefined || apiAccessKey === "") {
-        const responseObj = { "status": "fail", "status_code": 400, "message": localeService.translate('MISSING_HEADERS'), "data": "" };
-        return res.status(400).json(responseObj);
+    } else {
+        // check header
+        if (deviceToken === "" || deviceToken === undefined || deviceId === undefined || deviceId === "" || deviceType === undefined || deviceType === "" || apiAccessKey === undefined || apiAccessKey === "") {
+            const responseObj = { "status": "fail", "status_code": 400, "message": localeService.translate('MISSING_HEADERS'), "data": "" };
+            return res.status(400).json(responseObj);
+        }
+
+        // Check device type
+        if (deviceType !== commonConstants.DIVICE_TYPE_ANDROID && deviceType !== commonConstants.DIVICE_TYPE_IOS && deviceType !== commonConstants.DIVICE_TYPE_WEBSITE) {
+
+            const responseObj = { "status": "fail", "status_code": 400, "message": localeService.translate('INVALID_DIVICE_TYPE'), "data": "" };
+            return res.status(400).json(responseObj);
+        }
+
+        // check api access key
+        if (process.env.API_KEY != apiAccessKey) {
+            const responseObj = { "status": "fail", "status_code": 401, "message": localeService.translate('INVALID_API_KEY'), "data": "" };
+            return res.status(401).json(responseObj);
+        }
+
+        next();
     }
-
-    // Check device type
-    if (deviceType !== commonConstants.DIVICE_TYPE_ANDROID && deviceType !== commonConstants.DIVICE_TYPE_IOS && deviceType !== commonConstants.DIVICE_TYPE_WEBSITE) {
-
-        const responseObj = { "status": "fail", "status_code": 400, "message": localeService.translate('INVALID_DIVICE_TYPE'), "data": "" };
-        return res.status(400).json(responseObj);
-    }
-
-    // check api access key
-    if (process.env.API_KEY != apiAccessKey) {
-        const responseObj = { "status": "fail", "status_code": 401, "message": localeService.translate('INVALID_API_KEY'), "data": "" };
-        return res.status(401).json(responseObj);
-    }
-
-    next();
-
 };
 
 module.exports = checkApiHeaders;
