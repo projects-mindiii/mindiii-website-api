@@ -6,5 +6,6 @@
 	"INVALID_API_KEY": "INVALID_API_KEY",
 	"PRODUCT_DATA": "Product Detail.",
 	"INVALID_PROJECT_KEY": "Invalid project_key ",
-	"GALLERY_LIST": "Gallery list."
+	"GALLERY_LIST": "Gallery list.",
+	"INDUSTRY_LIST": "Industry list."
 }
