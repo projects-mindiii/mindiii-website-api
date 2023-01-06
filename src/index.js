@@ -7,7 +7,7 @@ import { notFound } from "./middlewares/errorHandler";
 import { responseHandler } from "./middlewares/responseHandler";
 import { ReasonPhrases, StatusCodes, getReasonPhrase, getStatusCode } from 'http-status-codes';
 import logger from "~/utils/logger";
-
+const cors = require('cors');
 var dotenv = require('dotenv').config();
 const app = express(),
     APP_PORT = process.env.APP_PORT,
@@ -16,6 +16,15 @@ app.set("port", APP_PORT);
 app.set("host", APP_HOST);
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
+
+const allowedDomains = ["http://localhost:3000","https://mindiii.com"];
+app.use(
+    cors({
+        origin: allowedDomains,
+        credentials: true
+    })
+)
 
 
 // parse application/x-www-form-urlencoded

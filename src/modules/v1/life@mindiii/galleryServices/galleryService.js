@@ -8,7 +8,7 @@ const galleryModelObj = new galleryModel();
 export class galleryService {
 
 
-    // Portfolio list 
+    // Gallery list 
     async galleryList(req) {
 
         var galleryImage = await galleryModelObj.fetchGalleryListWithSelectedFields({ "is_active": 1 }, ['image', 'title', 'alt', 'description'], tableConstants.TB_GALLERIES);
